@@ -139,7 +139,7 @@ for idx,img in enumerate(paths):
     _, masked_image = mask_image(masked_image, sp5, ep5)
    
     seg_balls = segment_balls(masked_image)
-   
+    cv2.imwrite(f"mask_image1/{idx}.png", seg_balls)
     ground_image = cv2.imread(gd_paths[idx], cv2.COLOR_BGR2GRAY)
     ground_image_resized = cv2.resize(ground_image, (512, 512))
     intersection = np.logical_and(seg_balls, ground_image_resized)
@@ -150,10 +150,11 @@ for idx,img in enumerate(paths):
     #cv2.imshow(f'Input Image{idx}', seg_balls)
 
 
-print(scores)
+
 
 
 mean_dice_score = np.mean(scores)
+print(mean_dice_score)
 std_dev_dice_score = np.std(scores)
 print("Mean Dice Score:", mean_dice_score)
 print("Standard Deviation of Dice Scores:", std_dev_dice_score)
